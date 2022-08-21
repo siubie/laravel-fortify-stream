@@ -91,8 +91,8 @@
                                                 <label for="password_confirmation" class="d-block">Password
                                                     Confirmation</label>
                                                 <input id="password_confirmation" name="password_confirmation"
-                                                    value="{{ old('password') }}" type="password" class="form-control"
-                                                    placeholder="Masukkan Konfirmasi Password">
+                                                    value="{{ old('password_confirmation') }}" type="password"
+                                                    class="form-control" placeholder="Masukkan Konfirmasi Password">
                                                 @error('password')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}

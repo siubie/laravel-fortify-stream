@@ -14,8 +14,13 @@ class ExampleTest extends TestCase
      */
     public function test_the_application_returns_a_successful_response()
     {
+        //buka halaman awal
         $response = $this->get('/');
-
+        //pastikan ada tulisan login
+        $response->assertSeeText('Login');
+        $response->assertSeeText('Email');
+        $response->assertSeeText('Password');
+        //pastikan halaman bisa dibuka
         $response->assertStatus(200);
     }
 }

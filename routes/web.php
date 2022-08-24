@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PriceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +23,5 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         return view('welcome');
     });
 });
+
+Route::resource('price', PriceController::class);

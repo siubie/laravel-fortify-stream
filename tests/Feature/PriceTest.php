@@ -51,6 +51,7 @@ class PriceTest extends TestCase
         $response->assertSeeText("930000");
         $response->assertSeeText("Delete");
     }
+
     public function test_create_price_test()
     {
         //buka halaman /price/create

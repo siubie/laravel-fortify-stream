@@ -21,7 +21,7 @@
                                         <th>Harga Jual</th>
                                         <th>Action</th>
                                     </tr>
-                                    @forelse ($prices as $key=>$price)
+                                    @forelse ($prices as $price)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $price->buy }}</td>

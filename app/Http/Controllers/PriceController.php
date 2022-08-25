@@ -16,7 +16,8 @@ class PriceController extends Controller
     public function index()
     {
         //
-        return view('price.index', ['prices' => Price::all()]);
+        $prices = Price::all();
+        return view('price.index', compact('prices'));
     }
 
     /**

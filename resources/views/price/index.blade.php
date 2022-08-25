@@ -19,13 +19,15 @@
                                         <th>#</th>
                                         <th>Harga Beli</th>
                                         <th>Harga Jual</th>
+                                        <th>Tanggal</th>
                                         <th>Action</th>
                                     </tr>
-                                    @forelse ($prices as $price)
+                                    @forelse ($prices as $key=>$price)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $key + $prices->firstItem() }}</td>
                                             <td>{{ $price->buy }}</td>
                                             <td>{{ $price->sell }}</td>
+                                            <td>{{ $price->date }}</td>
                                             <td><a href="#" class="btn btn-secondary">Delete</a></td>
                                         </tr>
                                     @empty
@@ -37,6 +39,9 @@
                                     @endforelse
                                 </table>
                             </div>
+                        </div>
+                        <div class="card-footer text-right">
+                            {!! $prices->links() !!}
                         </div>
                     </div>
                 </div>

@@ -19,7 +19,8 @@ class PriceFactory extends Factory
         return [
             //
             'buy' => fake()->numberBetween(900000, 1000000),
-            'sell' => fake()->numberBetween(900000, 1000000)
+            'sell' => fake()->numberBetween(900000, 1000000),
+            'date' => fake()->date('Y-m-d')
         ];
     }
 }

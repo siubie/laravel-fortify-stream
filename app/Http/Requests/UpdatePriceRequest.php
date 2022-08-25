@@ -26,7 +26,8 @@ class UpdatePriceRequest extends FormRequest
         return [
             //
             'buy' => 'required',
-            'sell' => 'required'
+            'sell' => 'required',
+            'date' => 'required'
         ];
     }
 }

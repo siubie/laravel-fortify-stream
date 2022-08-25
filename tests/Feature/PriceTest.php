@@ -35,7 +35,8 @@ class PriceTest extends TestCase
         // Isi dulu satu data
         Price::create([
             'buy' => 900000,
-            'sell' => 930000
+            'sell' => 930000,
+            'date' => date('Y-m-d'),
         ]);
         //do something
         //user buka halaman list price
@@ -45,6 +46,7 @@ class PriceTest extends TestCase
         //cek header table
         $response->assertSeeText("Harga Jual");
         $response->assertSeeText("Harga Beli");
+        $response->assertSeeText("Tanggal");
         $response->assertSeeText("Action");
         //cek tampil keterangan tabel masih kosong 
         $response->assertSeeText("900000");
@@ -74,11 +76,27 @@ class PriceTest extends TestCase
         $response = $this->post('/price', [
             'sell' => '900000',
             'buy' => '',
+            'date' => date('Y-m-d'),
         ]);
         //pastikan halamannya bisa dibuka
         $response->assertStatus(302);
         $response->assertInvalid([
             'buy' => 'The buy field is required.',
+        ]);
+    }
+
+    public function test_date_is_required()
+    {
+        //buka halaman /price/create
+        $response = $this->post('/price', [
+            'buy' => '900000',
+            'sell' => '80000',
+            'date' => '',
+        ]);
+        //pastikan halamannya bisa dibuka
+        $response->assertStatus(302);
+        $response->assertInvalid([
+            'date' => 'The date field is required.',
         ]);
     }
 
@@ -88,6 +106,7 @@ class PriceTest extends TestCase
         $response = $this->post('/price', [
             'buy' => '900000',
             'sell' => '',
+            'date' => date('Y-m-d'),
         ]);
         //pastikan halamannya bisa dibuka
         $response->assertStatus(302);
@@ -102,13 +121,36 @@ class PriceTest extends TestCase
         $response = $this->post('/price', [
             'buy' => '',
             'sell' => '',
+            'date' => '',
         ]);
         //pastikan halamannya bisa dibuka
         $response->assertStatus(302);
         $response->assertInvalid([
             'sell' => 'The sell field is required.',
             'buy' => 'The buy field is required.',
+            'date' => 'The date field is required.',
         ]);
+    }
+
+    public function test_pagination()
+    {
+        //setup
+        $this->seed();
+
+        //action
+        $response = $this->get('/price');
+
+        //assert
+        $response->assertStatus(200);
+        $response->assertDontSeeText('Belum Ada Isinya');
+
+        $response = $this->get('price?page=2');
+        $response->assertStatus(200);
+        $response->assertDontSeeText('Belum Ada Isinya');
+
+        $response = $this->get('price?page=3');
+        $response->assertStatus(200);
+        $response->assertSeeText('Belum Ada Isinya');
     }
     // public function test_store_price_test()
     // {

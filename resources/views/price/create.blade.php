@@ -34,6 +34,15 @@
                                     @enderror
                                 </div>
 
+                                <div class="form-group">
+                                    <label>Tanggal</label>
+                                    <input type="text" name="date" value="{{ old('date') }}"
+                                        class="form-control @error('date') is-invalid @enderror"
+                                        placeholder="Masukkan Tanggal">
+                                    @error('date')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="card-footer text-right">
                                 <button class="btn btn-primary">Simpan</button>

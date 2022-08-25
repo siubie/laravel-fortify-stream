@@ -16,7 +16,7 @@ class PriceController extends Controller
     public function index()
     {
         //
-        $prices = Price::all();
+        $prices = Price::paginate(5);
         return view('price.index', compact('prices'));
     }
 

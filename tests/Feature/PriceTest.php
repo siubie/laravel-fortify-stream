@@ -49,8 +49,8 @@ class PriceTest extends TestCase
         $response->assertSeeText("Tanggal");
         $response->assertSeeText("Action");
         //cek tampil keterangan tabel masih kosong 
-        $response->assertSeeText("900000");
-        $response->assertSeeText("930000");
+        $response->assertSeeText("Rp 900.000,00");
+        $response->assertSeeText("Rp 930.000,00");
         $response->assertSeeText("Delete");
     }
 
@@ -115,6 +115,70 @@ class PriceTest extends TestCase
         ]);
     }
 
+    public function test_buy_is_numeric()
+    {
+        //buka halaman /price/create
+        $response = $this->post('/price', [
+            'buy' => 'abc',
+            'sell' => '90000',
+            'date' => date('Y-m-d'),
+        ]);
+        //pastikan halamannya bisa dibuka
+        $response->assertStatus(302);
+        $response->assertInvalid([
+            'buy' => 'The buy must be a number.',
+        ]);
+    }
+
+    public function test_date_is_valid()
+    {
+        //buka halaman /price/create
+        $response = $this->post('/price', [
+            'buy' => '90000',
+            'sell' => '90000',
+            'date' => 'asda',
+        ]);
+        //pastikan halamannya bisa dibuka
+        $response->assertStatus(302);
+        $response->assertInvalid([
+            'date' => 'The date is not a valid date.',
+        ]);
+    }
+
+    public function test_date_is_unique()
+    {
+        //buka halaman /price/create
+        Price::create([
+            'buy' => '90000',
+            'sell' => '90000',
+            'date' => date('Y-m-d'),
+        ]);
+        $response = $this->post('/price', [
+            'buy' => '90000',
+            'sell' => '90000',
+            'date' => date('Y-m-d'),
+        ]);
+        //pastikan halamannya bisa dibuka
+        $response->assertStatus(302);
+        $response->assertInvalid([
+            'date' => 'The date has already been taken.',
+        ]);
+    }
+
+    public function test_sell_is_numeric()
+    {
+        //buka halaman /price/create
+        $response = $this->post('/price', [
+            'buy' => '90000',
+            'sell' => 'abc',
+            'date' => date('Y-m-d'),
+        ]);
+        //pastikan halamannya bisa dibuka
+        $response->assertStatus(302);
+        $response->assertInvalid([
+            'sell' => 'The sell must be a number.',
+        ]);
+    }
     public function test_all_input_is_required()
     {
         //buka halaman /price/create

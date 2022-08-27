@@ -25,9 +25,9 @@ class StorePriceRequest extends FormRequest
     {
         return [
             //
-            'buy' => 'required',
-            'sell' => 'required',
-            'date' => 'required',
+            'buy' => 'required|numeric',
+            'sell' => 'required|numeric',
+            'date' => 'required|date|unique:prices',
         ];
     }
 }

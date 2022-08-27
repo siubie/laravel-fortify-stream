@@ -40,6 +40,8 @@ class PriceController extends Controller
     public function store(StorePriceRequest $request)
     {
         //
+        Price::create($request->validated());
+        return redirect()->route('price.index');
     }
 
     /**

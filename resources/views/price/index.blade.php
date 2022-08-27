@@ -25,9 +25,9 @@
                                     @forelse ($prices as $key=>$price)
                                         <tr>
                                             <td>{{ $key + $prices->firstItem() }}</td>
-                                            <td>{{ $price->buy }}</td>
-                                            <td>{{ $price->sell }}</td>
-                                            <td>{{ $price->date }}</td>
+                                            <td class="text-right">@money($price->buy, 'IDR')</td>
+                                            <td class="text-right">@money($price->sell, 'IDR')</td>
+                                            <td class="text-right">{{ $price->date }}</td>
                                             <td><a href="#" class="btn btn-secondary">Delete</a></td>
                                         </tr>
                                     @empty

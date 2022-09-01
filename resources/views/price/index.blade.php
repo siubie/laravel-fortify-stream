@@ -17,9 +17,9 @@
                                 <table class="table table-bordered table-md">
                                     <tr>
                                         <th>#</th>
-                                        <th>Harga Beli</th>
-                                        <th>Harga Jual</th>
-                                        <th>Tanggal</th>
+                                        <th class="text-right">Harga Beli</th>
+                                        <th class="text-right">Harga Jual</th>
+                                        <th class="text-right">Tanggal</th>
                                         <th>Action</th>
                                     </tr>
                                     @forelse ($prices as $key=>$price)
@@ -28,7 +28,11 @@
                                             <td class="text-right">@money($price->buy, 'IDR')</td>
                                             <td class="text-right">@money($price->sell, 'IDR')</td>
                                             <td class="text-right">{{ $price->date }}</td>
-                                            <td><a href="#" class="btn btn-secondary">Delete</a></td>
+                                            <td>
+                                                <a href="#" class="btn btn-primary">View</a>
+                                                <a href="#" class="btn btn-success">Edit</a>
+                                                <a href="#" class="btn btn-danger">Delete</a>
+                                            </td>
                                         </tr>
                                     @empty
                                         <tr>

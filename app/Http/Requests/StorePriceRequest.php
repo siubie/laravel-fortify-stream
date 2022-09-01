@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePriceRequest extends FormRequest
@@ -29,5 +31,14 @@ class StorePriceRequest extends FormRequest
             'sell' => 'required|numeric',
             'date' => 'required|date|unique:prices',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->date != null && DateTime::createFromFormat('d-m-Y', $this->date)) {
+            $this->merge([
+                'date' => Carbon::parse($this->date)->format('Y-m-d'),
+            ]);
+        }
     }
 }

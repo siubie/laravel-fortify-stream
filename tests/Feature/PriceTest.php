@@ -212,18 +212,33 @@ class PriceTest extends TestCase
         ]);
     }
 
-    public function test_buy_minimum_three_digit()
+    public function test_buy_greater_zero()
     {
         //buka halaman /price/create
         $response = $this->post('/price', [
-            'buy' => 12,
+            'buy' => 0,
             'sell' => 900000,
             'date' => date('Y-m-d'),
         ]);
         //pastikan halamannya bisa dibuka
         $response->assertStatus(302);
         $response->assertInvalid([
-            'buy' => 'The buy must be at least 100.',
+            'buy' => 'The buy must be greater than 0.',
+        ]);
+    }
+
+    public function test_sell_greater_zero()
+    {
+        //buka halaman /price/create
+        $response = $this->post('/price', [
+            'buy' => 90000,
+            'sell' => 0,
+            'date' => date('Y-m-d'),
+        ]);
+        //pastikan halamannya bisa dibuka
+        $response->assertStatus(302);
+        $response->assertInvalid([
+            'sell' => 'The sell must be greater than 0.',
         ]);
     }
     public function test_pagination()

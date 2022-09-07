@@ -15,6 +15,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
+                                    <caption>Tabel Harga Jual dan Beli</caption>
                                     <tr>
                                         <th>#</th>
                                         <th class="text-right">Harga Beli</th>
@@ -36,7 +37,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="4">
+                                            <td colspan="5">
                                                 Belum Ada Isinya
                                             </td>
                                         </tr>

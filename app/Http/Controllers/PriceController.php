@@ -27,7 +27,6 @@ class PriceController extends Controller
      */
     public function create()
     {
-        //
         return view('price.create');
     }
 

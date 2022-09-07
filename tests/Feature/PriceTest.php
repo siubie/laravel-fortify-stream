@@ -179,6 +179,7 @@ class PriceTest extends TestCase
             'sell' => 'The sell must be a number.',
         ]);
     }
+
     public function test_all_input_is_required()
     {
         //buka halaman /price/create
@@ -196,6 +197,35 @@ class PriceTest extends TestCase
         ]);
     }
 
+    public function test_buy_numeric()
+    {
+        //buka halaman /price/create
+        $response = $this->post('/price', [
+            'buy' => 'abc',
+            'sell' => 900000,
+            'date' => date('Y-m-d'),
+        ]);
+        //pastikan halamannya bisa dibuka
+        $response->assertStatus(302);
+        $response->assertInvalid([
+            'buy' => 'The buy must be a number.',
+        ]);
+    }
+
+    public function test_buy_minimum_three_digit()
+    {
+        //buka halaman /price/create
+        $response = $this->post('/price', [
+            'buy' => 12,
+            'sell' => 900000,
+            'date' => date('Y-m-d'),
+        ]);
+        //pastikan halamannya bisa dibuka
+        $response->assertStatus(302);
+        $response->assertInvalid([
+            'buy' => 'The buy must be at least 100.',
+        ]);
+    }
     public function test_pagination()
     {
         //setup
@@ -216,7 +246,4 @@ class PriceTest extends TestCase
         $response->assertStatus(200);
         $response->assertSeeText('Belum Ada Isinya');
     }
-    // public function test_store_price_test()
-    // {
-    // }
 }

@@ -13,6 +13,9 @@
                             <h4>Tabel Harga Emas</h4>
                         </div>
                         <div class="card-body">
+                            <div class="text-right">
+                                <a href="{{ route('price.create') }}" class="btn btn-primary mb-3">Create New Price</a>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <caption>Tabel Harga Jual dan Beli</caption>
@@ -21,7 +24,7 @@
                                         <th class="text-right">Harga Beli</th>
                                         <th class="text-right">Harga Jual</th>
                                         <th class="text-right">Tanggal</th>
-                                        <th>Action</th>
+                                        <th class="text-right">Action</th>
                                     </tr>
                                     @forelse ($prices as $key=>$price)
                                         <tr>
@@ -29,9 +32,10 @@
                                             <td class="text-right">@money($price->buy, 'IDR')</td>
                                             <td class="text-right">@money($price->sell, 'IDR')</td>
                                             <td class="text-right">{{ $price->date }}</td>
-                                            <td>
+                                            <td class="text-right">
                                                 <a href="#" class="btn btn-primary">View</a>
-                                                <a href="#" class="btn btn-success">Edit</a>
+                                                <a href="{{ route('price.edit', $price->id) }}"
+                                                    class="btn btn-success">Edit</a>
                                                 <a href="#" class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>

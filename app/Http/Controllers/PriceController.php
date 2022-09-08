@@ -63,6 +63,7 @@ class PriceController extends Controller
     public function edit(Price $price)
     {
         //
+        return view('price.edit', compact('price'));
     }
 
     /**

@@ -21,7 +21,7 @@ class Price extends Model
     protected function date(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => Carbon::parse($value)->format('d-M-Y'),
+            get: fn ($value) => Carbon::parse($value)->format('d-m-Y'),
             set: fn ($value) => Carbon::parse($value)->format('Y-m-d')
         );
     }

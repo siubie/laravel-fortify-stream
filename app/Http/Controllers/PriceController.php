@@ -75,7 +75,8 @@ class PriceController extends Controller
      */
     public function update(UpdatePriceRequest $request, Price $price)
     {
-        //
+        $price->update($request->validated());
+        return redirect()->route('price.index');
     }
 
     /**

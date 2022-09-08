@@ -29,7 +29,7 @@ class StorePriceRequest extends FormRequest
             //
             'buy' => 'required|numeric|gt:0',
             'sell' => 'required|numeric|gt:0',
-            'date' => 'required|date|unique:prices',
+            'date' => 'required|date|unique:prices,date',
         ];
     }
 

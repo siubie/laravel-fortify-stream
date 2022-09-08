@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-12">
                     <div class="card">
-                        <form action="{{ route('price.store') }}">
+                        <form action="{{ route('price.update', $price->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="card-header">

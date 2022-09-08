@@ -33,7 +33,6 @@
                                             <td class="text-right">@money($price->sell, 'IDR')</td>
                                             <td class="text-right">{{ $price->date }}</td>
                                             <td class="text-right">
-                                                <a href="#" class="btn btn-primary">View</a>
                                                 <a href="{{ route('price.edit', $price->id) }}"
                                                     class="btn btn-success">Edit</a>
                                                 <a href="#" class="btn btn-danger">Delete</a>

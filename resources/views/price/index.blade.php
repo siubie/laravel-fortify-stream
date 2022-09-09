@@ -13,6 +13,7 @@
                             <h4>Tabel Harga Emas</h4>
                         </div>
                         <div class="card-body">
+                            @include('layout.flash')
                             <div class="text-right">
                                 <a href="{{ route('price.create') }}" class="btn btn-primary mb-3">Create New Price</a>
                             </div>
@@ -33,9 +34,14 @@
                                             <td class="text-right">@money($price->sell, 'IDR')</td>
                                             <td class="text-right">{{ $price->date }}</td>
                                             <td class="text-right">
-                                                <a href="{{ route('price.edit', $price->id) }}"
-                                                    class="btn btn-success">Edit</a>
-                                                <a href="#" class="btn btn-danger">Delete</a>
+                                                <form action="{{ route('price.destroy', $price->id) }}" method="post">
+                                                    @csrf()
+                                                    @method('DELETE')
+                                                    <a href="{{ route('price.edit', $price->id) }}"
+                                                        class="btn btn-success">Edit</a>
+                                                    <button type="submit" class="btn btn-danger"
+                                                        onclick="return confirm('Apakah anda yakin akan menghapus ?')">Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @empty

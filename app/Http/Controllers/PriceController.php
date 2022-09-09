@@ -15,7 +15,6 @@ class PriceController extends Controller
      */
     public function index()
     {
-        //
         $prices = Price::paginate(5);
         return view('price.index', compact('prices'));
     }
@@ -38,9 +37,8 @@ class PriceController extends Controller
      */
     public function store(StorePriceRequest $request)
     {
-        //
         Price::create($request->validated());
-        return redirect()->route('price.index');
+        return redirect()->route('price.index')->with('success', 'Berhasil Simpan Data');
     }
 
     /**
@@ -62,7 +60,6 @@ class PriceController extends Controller
      */
     public function edit(Price $price)
     {
-        //
         return view('price.edit', compact('price'));
     }
 
@@ -76,7 +73,7 @@ class PriceController extends Controller
     public function update(UpdatePriceRequest $request, Price $price)
     {
         $price->update($request->validated());
-        return redirect()->route('price.index');
+        return redirect()->route('price.index')->with('success', 'Berhasil Update Data');
     }
 
     /**
@@ -87,6 +84,7 @@ class PriceController extends Controller
      */
     public function destroy(Price $price)
     {
-        //
+        $price->delete();
+        return redirect()->route('price.index')->with('success', 'Berhasil Delete Data');
     }
 }

@@ -14,6 +14,7 @@ class PriceUpdateTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->price = Price::create([
             'buy' => 900000,
             'sell' => 930000,
@@ -21,12 +22,6 @@ class PriceUpdateTest extends TestCase
         ]);
     }
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    //buy
     public function test_buy_is_required()
     {
         //buka halaman /price/create
@@ -37,6 +32,7 @@ class PriceUpdateTest extends TestCase
         ]);
         //pastikan halamannya bisa dibuka
         $response->assertStatus(302);
+
         $response->assertInvalid([
             'buy' => 'The buy field is required.',
         ]);
@@ -52,6 +48,7 @@ class PriceUpdateTest extends TestCase
         ]);
         //pastikan halamannya bisa dibuka
         $response->assertStatus(302);
+
         $response->assertInvalid([
             'sell' => 'The sell field is required.',
         ]);

@@ -24,4 +24,4 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     });
 });
 
-Route::resource('price', PriceController::class);
+Route::resource('price', PriceController::class)->except('show');

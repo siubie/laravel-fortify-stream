@@ -42,17 +42,6 @@ class PriceController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Price  $price
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Price $price)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Price  $price

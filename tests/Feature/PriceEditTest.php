@@ -19,18 +19,18 @@ class PriceEditTest extends TestCase
     {
         //setup
         //isi satu data
-        Price::create([
+        $price = Price::create([
             'buy' => 900000,
             'sell' => 930000,
             'date' => date('Y-m-d'),
         ]);
         //action
-        $response = $this->get('/price/1/edit');
+        $response = $this->get('/price/' . $price->id . '/edit');
         //assert
         $response->assertStatus(200);
         $response->assertSee('900000');
         $response->assertSee('930000');
-        $response->assertSee('08-09-2022');
+        $response->assertSee(date('d-m-Y'));
     }
 
     public function test_edit_data_not_found()

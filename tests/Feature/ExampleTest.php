@@ -18,7 +18,7 @@ class ExampleTest extends TestCase
         $response = $this->get('/');
         //pastikan ada tulisan login
         $response->assertSeeText('Login');
-        $response->assertSeeText('Email');
+        $response->assertSeeText('E-mail');
         $response->assertSeeText('Password');
         //pastikan halaman bisa dibuka
         $response->assertStatus(200);

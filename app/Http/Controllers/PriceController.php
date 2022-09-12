@@ -8,6 +8,7 @@ use App\Models\Price;
 
 class PriceController extends Controller
 {
+    public const INDEX = 'price.index';
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +17,7 @@ class PriceController extends Controller
     public function index()
     {
         $prices = Price::paginate(5);
-        return view('price.index', compact('prices'));
+        return view(PriceController::INDEX, compact('prices'));
     }
 
     /**
@@ -38,7 +39,7 @@ class PriceController extends Controller
     public function store(StorePriceRequest $request)
     {
         Price::create($request->validated());
-        return redirect()->route('price.index')->with('success', 'Berhasil Simpan Data');
+        return redirect()->route(PriceController::INDEX)->with('success', 'Berhasil Simpan Data');
     }
 
     /**
@@ -62,7 +63,7 @@ class PriceController extends Controller
     public function update(UpdatePriceRequest $request, Price $price)
     {
         $price->update($request->validated());
-        return redirect()->route('price.index')->with('success', 'Berhasil Update Data');
+        return redirect()->route(PriceController::INDEX)->with('success', 'Berhasil Update Data');
     }
 
     /**
@@ -74,6 +75,6 @@ class PriceController extends Controller
     public function destroy(Price $price)
     {
         $price->delete();
-        return redirect()->route('price.index')->with('success', 'Berhasil Delete Data');
+        return redirect()->route(PriceController::INDEX)->with('success', 'Berhasil Delete Data');
     }
 }

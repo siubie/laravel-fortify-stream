@@ -41,7 +41,7 @@
                                 <form action="{{ route('login') }}" method="POST">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="email">Email</label>
+                                        <label for="email">E-mail</label>
                                         <input type="email" name="email" value="{{ old('email') }}"
                                             class="form-control @error('email') is-invalid @enderror"
                                             placeholder="Masukkan Alamat Email">

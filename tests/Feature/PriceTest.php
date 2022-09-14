@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Price;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -14,6 +15,19 @@ class PriceTest extends TestCase
     public const NOCONTENT = 'Belum Ada Isinya';
     public const BUY = '900000';
     public const SELL = '930000';
+
+    private $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->user = $this->createUser();
+    }
+
+    private function createUser()
+    {
+        return User::factory()->create();
+    }
     /**
      * A basic feature test example.
      *
@@ -22,7 +36,7 @@ class PriceTest extends TestCase
     public function test_list_price_has_no_data()
     {
         //user buka halaman list price
-        $response = $this->get(PriceTest::PRICEURL);
+        $response = $this->actingAs($this->user)->get(PriceTest::PRICEURL);
         //pastikan halamannya bisa dibuka
         $response->assertStatus(200);
         //cek header table
@@ -44,7 +58,7 @@ class PriceTest extends TestCase
         ]);
         //do something
         //user buka halaman list price
-        $response = $this->get(PriceTest::PRICEURL);
+        $response = $this->actingAs($this->user)->get(PriceTest::PRICEURL);
         //pastikan halamannya bisa dibuka
         $response->assertStatus(200);
         //cek header table
@@ -61,7 +75,7 @@ class PriceTest extends TestCase
     public function test_create_price_test()
     {
         //buka halaman /price/create
-        $response = $this->get('/price/create');
+        $response = $this->actingAs($this->user)->get('/price/create');
         //pastikan halamannya bisa dibuka
         $response->assertStatus(200);
         $response->assertSeeText("Manage Harga Emas");
@@ -77,7 +91,7 @@ class PriceTest extends TestCase
     public function test_buy_is_required()
     {
         //buka halaman /price/create
-        $response = $this->post(PriceTest::PRICEURL, [
+        $response = $this->actingAs($this->user)->post(PriceTest::PRICEURL, [
             'sell' => PriceTest::BUY,
             'buy' => '',
             'date' => date('Y-m-d'),
@@ -92,7 +106,7 @@ class PriceTest extends TestCase
     public function test_date_is_required()
     {
         //buka halaman /price/create
-        $response = $this->post(PriceTest::PRICEURL, [
+        $response = $this->actingAs($this->user)->post(PriceTest::PRICEURL, [
             'buy' => PriceTest::BUY,
             'sell' => PriceTest::SELL,
             'date' => '',
@@ -107,7 +121,7 @@ class PriceTest extends TestCase
     public function test_sell_is_required()
     {
         //buka halaman /price/create
-        $response = $this->post(PriceTest::PRICEURL, [
+        $response = $this->actingAs($this->user)->post(PriceTest::PRICEURL, [
             'buy' => PriceTest::BUY,
             'sell' => '',
             'date' => date('Y-m-d'),
@@ -122,7 +136,7 @@ class PriceTest extends TestCase
     public function test_date_is_valid()
     {
         //buka halaman /price/create
-        $response = $this->post(PriceTest::PRICEURL, [
+        $response = $this->actingAs($this->user)->post(PriceTest::PRICEURL, [
             'buy' => PriceTest::BUY,
             'sell' => PriceTest::SELL,
             'date' => 'asda',
@@ -142,7 +156,7 @@ class PriceTest extends TestCase
             'sell' => PriceTest::SELL,
             'date' => date('Y-m-d'),
         ]);
-        $response = $this->post(PriceTest::PRICEURL, [
+        $response = $this->actingAs($this->user)->post(PriceTest::PRICEURL, [
             'buy' => PriceTest::BUY,
             'sell' => PriceTest::SELL,
             'date' => date('Y-m-d'),
@@ -157,7 +171,7 @@ class PriceTest extends TestCase
     public function test_sell_is_numeric()
     {
         //buka halaman /price/create
-        $response = $this->post(PriceTest::PRICEURL, [
+        $response = $this->actingAs($this->user)->post(PriceTest::PRICEURL, [
             'buy' => PriceTest::BUY,
             'sell' => 'abc',
             'date' => date('Y-m-d'),
@@ -172,7 +186,7 @@ class PriceTest extends TestCase
     public function test_all_input_is_required()
     {
         //buka halaman /price/create
-        $response = $this->post(PriceTest::PRICEURL, [
+        $response = $this->actingAs($this->user)->post(PriceTest::PRICEURL, [
             'buy' => '',
             'sell' => '',
             'date' => '',
@@ -189,7 +203,7 @@ class PriceTest extends TestCase
     public function test_buy_numeric()
     {
         //buka halaman /price/create
-        $response = $this->post(PriceTest::PRICEURL, [
+        $response = $this->actingAs($this->user)->post(PriceTest::PRICEURL, [
             'buy' => 'abc',
             'sell' => PriceTest::SELL,
             'date' => date('Y-m-d'),
@@ -204,7 +218,7 @@ class PriceTest extends TestCase
     public function test_buy_greater_zero()
     {
         //buka halaman /price/create
-        $response = $this->post(PriceTest::PRICEURL, [
+        $response = $this->actingAs($this->user)->post(PriceTest::PRICEURL, [
             'buy' => '0',
             'sell' => PriceTest::SELL,
             'date' => date('Y-m-d'),
@@ -219,7 +233,7 @@ class PriceTest extends TestCase
     public function test_sell_greater_zero()
     {
         //buka halaman /price/create
-        $response = $this->post(PriceTest::PRICEURL, [
+        $response = $this->actingAs($this->user)->post(PriceTest::PRICEURL, [
             'buy' => '90000',
             'sell' => '0',
             'date' => date('Y-m-d'),
@@ -236,7 +250,7 @@ class PriceTest extends TestCase
         $this->seed();
 
         //action
-        $response = $this->get(PriceTest::PRICEURL);
+        $response = $this->actingAs($this->user)->get(PriceTest::PRICEURL);
 
         //assert
         $response->assertStatus(200);

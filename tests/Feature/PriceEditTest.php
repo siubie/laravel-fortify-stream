@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Price;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -10,6 +11,18 @@ use Tests\TestCase;
 class PriceEditTest extends TestCase
 {
     use RefreshDatabase;
+    private $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->user = $this->createUser();
+    }
+
+    private function createUser()
+    {
+        return User::factory()->create();
+    }
     /**
      * A basic feature test example.
      *
@@ -25,7 +38,7 @@ class PriceEditTest extends TestCase
             'date' => date('Y-m-d'),
         ]);
         //action
-        $response = $this->get('/price/' . $price->id . '/edit');
+        $response = $this->actingAs($this->user)->get('/price/' . $price->id . '/edit');
         //assert
         $response->assertStatus(200);
         $response->assertSee('900000');
@@ -36,7 +49,7 @@ class PriceEditTest extends TestCase
     public function test_edit_data_not_found()
     {
         //action
-        $response = $this->get('/price/1/edit');
+        $response = $this->actingAs($this->user)->get('/price/1/edit');
         //assert
         $response->assertStatus(404);
     }

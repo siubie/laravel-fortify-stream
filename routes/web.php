@@ -22,6 +22,5 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/home', function () {
         return view('welcome');
     });
+    Route::resource('price', PriceController::class)->except('show');
 });
-
-Route::resource('price', PriceController::class)->except('show');

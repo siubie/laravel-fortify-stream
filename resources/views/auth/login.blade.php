@@ -34,24 +34,25 @@
 
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h4>Login</h4>
+                                <h4 data-id="title">Login</h4>
                             </div>
 
                             <div class="card-body">
                                 <form action="{{ route('login') }}" method="POST">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="email">E-mail</label>
+                                        <label for="email" data-id="label-email">E-mail</label>
                                         <input type="email" name="email" value="{{ old('email') }}"
                                             class="form-control @error('email') is-invalid @enderror"
-                                            placeholder="Masukkan Alamat Email">
+                                            placeholder="Masukkan Alamat Email" data-id="input-email">
                                         @error('email')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <div class="d-block">
-                                            <label for="password" class="control-label">Password</label>
+                                            <label for="password" class="control-label" data-id="label-password"
+                                                data-id="input-password">Password</label>
                                             <div class="float-right">
                                                 <a href="{{ route('password.request') }}" class="text-small">
                                                     Forgot Password?
@@ -61,13 +62,14 @@
                                         <!-- <label class="font-weight-bold text-uppercase">Password</label> -->
                                         <input type="password" name="password"
                                             class="form-control @error('password') is-invalid @enderror"
-                                            placeholder="Masukkan Password">
+                                            placeholder="Masukkan Password" data-id="input-password">
                                         @error('password')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4"
+                                            data-id="btn-login">
                                             Login
                                         </button>
                                     </div>

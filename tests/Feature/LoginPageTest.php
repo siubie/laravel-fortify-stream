@@ -8,12 +8,8 @@ use Tests\TestCase;
 
 class LoginPageTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_login_page_shown_correctly()
+    /** @test */
+    public function login_page_shown_correctly()
     {
         //setup
         //do something
@@ -22,5 +18,11 @@ class LoginPageTest extends TestCase
         $response->assertStatus(200);
         $response->assertSeeText("E-mail");
         $response->assertSee('placeholder="Masukkan Alamat Email"', false);
+    }
+
+    /** @test */
+    public function running_test()
+    {
+        $this->assertTrue(true);
     }
 }

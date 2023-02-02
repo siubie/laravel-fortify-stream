@@ -27,6 +27,30 @@
                                         <th class="text-right">Tanggal</th>
                                         <th class="text-right">Action</th>
                                     </tr>
+                                    {{-- @if (count($prices) > 0)
+                                        @foreach ($prices as $key => $price)
+                                            <tr>
+                                                <td>{{ $key + $prices->firstItem() }}</td>
+                                                <td class="text-right">@money($price->buy, 'IDR')</td>
+                                                <td class="text-right">@money($price->sell, 'IDR')</td>
+                                                <td class="text-right">{{ $price->date }}</td>
+                                                <td class="text-right">
+                                                    <form action="{{ route('price.destroy', $price->id) }}" method="post">
+                                                        @csrf()
+                                                        @method('DELETE')
+                                                        <a href="{{ route('price.edit', $price->id) }}"
+                                                            class="btn btn-success">Edit</a>
+                                                        <button type="submit" class="btn btn-danger"
+                                                            onclick="return confirm('Apakah anda yakin akan menghapus ?')">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="5" class="text-center">Data tidak ditemukan</td>
+                                        </tr>
+                                    @endif --}}
                                     @forelse ($prices as $key=>$price)
                                         <tr>
                                             <td>{{ $key + $prices->firstItem() }}</td>
